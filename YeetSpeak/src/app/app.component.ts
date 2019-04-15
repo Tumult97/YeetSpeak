@@ -19,13 +19,25 @@ export class AppComponent {
     }
 
     translateFromEnglish(base: string) {
+        this.translation = '';
         let wordArray = base.split(' ');
         let i: number = 0;
-        wordArray.forEach(word => {
-            for (i = 0; i < word.length; i++) {
-
+        // wordArray.forEach(word => {
+        //     for (i = 0; i < word.length; i++) {
+        //         this.translation += this.getCharacterChange(yeet, word.charAt(i)) + ' ';
+        //     }
+        // });
+        base = base.replace('\n', '~');
+        for (i = 0; i < base.length; i++) {
+            if(base.charAt(i) == '~') {
+                this.translation += '\n';
+                continue;
             }
-        });
+
+            this.translation += this.getCharacterChange(yeet, base.charAt(i)) + '_';
+        }
+        this.translation +=  this.getCharacterChange(yeet,'.');
+        return this.translation;
     }
 
     getCharacterChange(language: Language, character: string) {
