@@ -15,7 +15,7 @@ export class AppComponent {
     private yeet = yeet;
 
     ngOnInit() {
-        console.log(this.getCharacterChange(yeet, 'a')); // output 'testing'
+        console.log(AppComponent.getCharacterChange(yeet, 'a')); // output 'testing'
     }
 
     translateFromEnglish(base: string) {
@@ -31,16 +31,19 @@ export class AppComponent {
         for (i = 0; i < base.length; i++) {
             if(base.charAt(i) == '~') {
                 this.translation += '\n';
+            }else if(base.charAt(i) == '\''){
                 continue;
+            }else {
+                this.translation += AppComponent.getCharacterChange(yeet, base.charAt(i));
             }
 
-            this.translation += this.getCharacterChange(yeet, base.charAt(i)) + '_';
+            if(i != base.length - 1)
+                this.translation += '_';
         }
-        this.translation +=  this.getCharacterChange(yeet,'.');
         return this.translation;
     }
 
-    getCharacterChange(language: Language, character: string) {
+    static getCharacterChange(language: Language, character: string) {
         switch (character.toLowerCase()) {
             case "a":
                 return language.a;
